@@ -94,7 +94,7 @@ while true; do
     case $yn in
         [Yy]* ) clear; echo Running NadekoBot Auto-Installer; sleep 2; break;;
         [Nn]* ) echo Quitting...; rm nadekoautoinstaller.sh && exit;;
-        * ) echo "Couldn't get that please type [y] for Yes or [n] for No.";;
+        * ) echo "Couldn't get that. Please press [y] for Yes or [n] for No.";;
     esac
 done
 
@@ -104,7 +104,6 @@ echo ""
 read -n 1 -s -p "Press any key to continue..."
 	if [ "$VER" = "14.04" ]; then
 	echo "Gwen was here <3"
-	echo "Preparing..."
 	sudo apt-get install software-properties-common apt-transport-https -y
 	sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
@@ -113,62 +112,42 @@ read -n 1 -s -p "Press any key to continue..."
 	sudo apt update
 	sudo apt upgrade -y
 	sudo apt dist-upgrade -y
-	echo "Installing Git..."
 	sudo apt install git -y
-	echo "Installing .NET Core..."
 	sudo apt install dotnet-dev-1.0.0-preview2.1-003177 -y
-	echo "Installing prerequisites..."
 	sudo apt install libopus0 opus-tools libopus-dev libsodium-dev ffmpeg tmux -y
 	elif [ "$VER" = "16.04" ]; then
-	echo ""
-	echo "Preparing..."
 	sudo apt-get install software-properties-common apt-transport-https -y
 	sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 	sudo apt update
 	sudo apt upgrade -y
 	sudo apt dist-upgrade -y
-	echo "Installing Git..."
 	sudo apt install git -y
-	echo "Installing .NET Core..."
 	sudo apt install dotnet-dev-1.0.0-preview2.1-003177 -y
-	echo "Installing prerequisites..."
 	sudo apt install libopus0 opus-tools libopus-dev libsodium-dev ffmpeg tmux -y
 	elif [ "$VER" = "16.10" ]; then
-	echo ""
-	echo "Preparing..."
 	sudo apt-get install software-properties-common apt-transport-https -y
 	sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ yakkety main" > /etc/apt/sources.list.d/dotnetdev.list'
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 	sudo apt update
 	sudo apt upgrade -y
 	sudo apt dist-upgrade -y
-	echo "Installing Git..."
 	sudo apt install git -y
-	echo "Installing .NET Core..."
 	sudo apt install dotnet-dev-1.0.0-preview2.1-003177 -y
-	echo "Installing prerequisites..."
 	sudo apt install libopus0 opus-tools libopus-dev libsodium-dev ffmpeg tmux -y
 	elif [ "$VER" = "17.04" ]; then
-	echo ""
-	echo "Preparing..."
 	sudo apt-get install software-properties-common apt-transport-https -y
 	sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ yakkety main" > /etc/apt/sources.list.d/dotnetdev.list'
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 	sudo apt update
 	sudo apt upgrade -y
 	sudo apt dist-upgrade -y
-	echo "Installing Git..."
 	sudo apt install git -y
-	echo "Installing .NET Core..."
 	sudo apt install dotnet-dev-1.0.0-preview2.1-003177 -y
-	echo "Installing prerequisites..."
 	sudo apt install libopus0 opus-tools libopus-dev libsodium-dev ffmpeg tmux -y
 	fi
 elif [ "$OS" = "Debian" ]; then
 	if [ "$SVER" = "8" ]; then
-		echo ""
-		echo "Adding .NET to PATH..."
 		apt-get update
 		apt-get upgrade -y
 		apt-get install sudo -y
@@ -177,7 +156,6 @@ elif [ "$OS" = "Debian" ]; then
 		curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=835021
 		sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
 		sudo ln -s /opt/dotnet/dotnet /usr/local/bin
-		echo "Installing prerequisites..."
 		echo "deb http://ftp.debian.org/debian jessie-backports main" | tee /etc/apt/sources.list.d/debian-backports.list
 		sudo apt-get update && sudo apt install ffmpeg -y
 		sudo apt-get install libopus0 opus-tools libopus-dev libsodium-dev -y
@@ -190,8 +168,6 @@ elif [ "$OS" = "Debian" ]; then
 	fi
 elif [ "$OS" = "CentOS" ]; then
 	if [ "$VER" = "7" ]; then
-		echo ""
-		echo "Preparing..."
 		yum --obsoletes --exclude=kernel* update -y
 		yum install sudo -y
 		sudo yum install libunwind libicu -y
