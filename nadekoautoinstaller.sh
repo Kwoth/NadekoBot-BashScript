@@ -210,6 +210,24 @@ elif [ "$OS" = "Debian" ]; then
 		sudo apt-get install tmux python python3.5 -y
 		sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
 		sudo chmod a+rx /usr/local/bin/youtube-dl
+		
+	if [ "$SVER" = "9.1" ]; then
+		echo ""
+		echo "Adding .NET to PATH..."
+		sudo apt-get update
+		sudo apt-get upgrade -y
+		sudo apt-get install software-properties-common apt-transport-https -y
+		sudo apt-get install curl libunwind8 gettext -y
+		curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=848826
+		sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+		sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+		echo "Installing prerequisites..."
+		sudo apt-get update && sudo apt install ffmpeg -y
+		sudo apt-get install libopus0 opus-tools libopus-dev libsodium-dev -y
+		sudo apt-get install git -y
+		sudo apt-get install tmux python python3.5 -y
+		sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+		sudo chmod a+rx /usr/local/bin/youtube-dl
 	else
 		echo -e "Your OS $OS $VER $ARCH probably can run Microsoft .NET Core. \nContact NadekoBot's support on Discord with screenshot."
 		rm nadekoautoinstaller.sh
