@@ -211,7 +211,7 @@ elif [ "$OS" = "Debian" ]; then
 		sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
 		sudo chmod a+rx /usr/local/bin/youtube-dl
 		
-	elif [ "$SVER" = "9.1" ]; then
+	elif [ "$SVER" = "9" ]; then
 		echo ""
 		echo "Adding .NET to PATH..."
 		sudo apt-get update
