@@ -3,7 +3,7 @@
 echo "Welcome to NadekoBot."
 root=$(pwd)
 echo ""
-choice=9
+choice=10
 	echo "1. Download NadekoBot"
 	echo "2. Run Nadeko (Normally)"
 	echo "3. Run Nadeko with Auto Restart in this session"
@@ -11,9 +11,10 @@ choice=9
 	echo "5. Set up credentials.json (If you have downloaded NadekoBot already)"
 	echo "6. Auto-Install pm2 (For pm2 information, see README!)"
 	echo "7. Start Nadeko in pm2 (Complete option 6 first!)"
-	echo "8. Exit"
-	echo -n "Choose [1] to Download, [2 or 3] to Run, [6 and 7] for pm2 setup/startup (see README) or [8] to Exit."
-while [ $choice -eq 9 ]; do
+	echo "8. Start Nadeko as a service (Experimental)"
+	echo "9. Exit"
+	echo -n "Choose [1] to Download, [2 or 3] to Run, [6 and 7] for pm2 setup/startup (see README) or [9] to Exit."
+while [ $choice -eq 10 ]; do
 read choice
 if [ $choice -eq 1 ] ; then
 
@@ -154,7 +155,7 @@ bash "$root/linuxAIO.sh"
 						else
 							if [ $choice -eq 7 ] ; then
 							echo ""
-							echo "Getting the pm2 startup options for NadekoBot.."
+							echo "Getting the pm2 startup options for NadekoBot..."
 							wget -N https://github.com/Kwoth/NadekoBot-BashScript/raw/1.9/nadekobotpm2start.sh && bash "$root/nadekobotpm2start.sh"
 							echo ""
 							sleep 2s
@@ -162,20 +163,30 @@ bash "$root/linuxAIO.sh"
 							else
 								if [ $choice -eq 8 ] ; then
 									echo ""
-									echo "Exiting..."
-									cd "$root"
-									exit 0
+									echo "Setting up NadekoBot as a service..."
+									wget -N https://github.com/MaybeGoogle/NadekoFiles/raw/master/Install%20Scripts/NadekoService.sh && bash "$root/NadekoService.sh"
+									echo ""
+									sleep 2s
+									bash "$root/linuxAIO.sh"
 								else
-									clear
-									echo "1. Download NadekoBot"
-									echo "2. Run Nadeko (Normally)"
-									echo "3. Run Nadeko with Auto Restart in this session"
-									echo "4. Auto-Install Prerequisites (For Ubuntu, Debian and CentOS)"
-									echo "6. Auto-Install pm2 (For pm2 information, see README!)"
-									echo "7. Start Nadeko in pm2 (Complete option 6 first!)"
-									echo "8. Exit"
-									echo -n "Choose [1] to Download, [2 or 3] to Run, [6 and 7] for pm2 setup/startup (see README) or [8] to Exit."
-									choice=9
+									if [ $choice -eq 9 ] ; then
+										echo ""
+										echo "Exiting..."
+										cd "$root"
+										exit 0
+									else
+										clear
+										echo "1. Download NadekoBot"
+										echo "2. Run Nadeko (Normally)"
+										echo "3. Run Nadeko with Auto Restart in this session"
+										echo "4. Auto-Install Prerequisites (For Ubuntu, Debian and CentOS)"
+										echo "6. Auto-Install pm2 (For pm2 information, see README!)"
+										echo "7. Start Nadeko in pm2 (Complete option 6 first!)"
+										echo "8. Start Nadeko as a service (Experimental)"
+										echo "9. Exit"
+										echo -n "Choose [1] to Download, [2 or 3] to Run, [6 and 7] for pm2 setup/startup (see README) or [9] to Exit."
+										choice=10
+									fi
 								fi
 							fi	
 						fi 
