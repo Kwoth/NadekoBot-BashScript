@@ -95,6 +95,24 @@ echo ""
 echo "----------"
 echo ""
 
+echo Please enter Twitch Client ID \(Refer to the guide.\):
+read twitchclientid
+echo Alright saved \'$twitchclientid\' as your bot\'s Twitch Client ID.
+sleep 2
+clear
+
+echo Please enter Location IQ Api Key \(Refer to the guide.\):
+read twitchclientid
+echo Alright saved \'$locationiqapikey\' as your bot\'s Location IQ Api Key.
+sleep 2
+clear
+
+echo Please enter Timezone DB Api Key \(Refer to the guide.\):
+read tzdbapikey
+echo Alright saved \'$tzdbapikey\' as your bot\'s Timezone DB Api Key.
+sleep 2
+clear
+
 echo Please enter LoL API Key or Just Press [Enter Key] to skip. \(optional\) \(Refer to the JSON Explanations guide.\):
 read lolapikey
 echo Alright saved \'$lolapikey\'
@@ -130,6 +148,9 @@ echo "{
     $ownerid
   ],
   \"LoLApiKey\": \"$lolapikey\",
+  \"TwitchClientId\": \"$twitchclientid\",
+  \"LocationIqApiKey\": \"$locationiqapikey\",
+  \"TimezoneDbApiKey\": \"$tzdbapikey\",
   \"GoogleApiKey\": \"$googleapi\",
   \"MashapeKey\": \"$mashapekey\",
   \"OsuApiKey\": \"$osu\",
