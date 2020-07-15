@@ -52,7 +52,6 @@ cp $srvFile $HOME/.config/systemd/user/$srvFile
 cp $updFile $HOME/.config/systemd/user/$updFile
 cp $timFile $HOME/.config/systemd/user/$timFile
 
-exit 0
 echo Enabling services.
 /bin/systemctl --user enable nadeko.service
 /bin/systemctl --user enable nadeko-update.timer
