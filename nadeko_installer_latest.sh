@@ -2,19 +2,16 @@
 echo ""
 echo "NadekoBot Installer started."
 
-if hash git 1>/dev/null 2>&1
-then
+if hash git 1>/dev/null 2>&1; then
     echo ""
     echo "Git Installed."
 else
-    echo ""    
+    echo ""
     echo "Git is not installed. Please install Git."
     exit 1
 fi
 
-
-if hash dotnet 1>/dev/null 2>&1
-then
+if hash dotnet 1>/dev/null 2>&1; then
     echo ""
     echo "Dotnet installed."
 else
@@ -51,8 +48,7 @@ echo "Building done. Moving Nadeko"
 
 cd "$root"
 
-if [ ! -d NadekoBot ]
-then
+if [ ! -d NadekoBot ]; then
     mv "$tempdir"/NadekoBot NadekoBot
 else
     rm -rf NadekoBot_old 1>/dev/null 2>&1
@@ -63,10 +59,10 @@ else
     echo "credentials.json copied to the new version"
     cp -RT "$root/NadekoBot_old/src/NadekoBot/bin/" "$root/NadekoBot/src/NadekoBot/bin/" 1>/dev/null 2>&1
     cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
-	cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
+    cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
     cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
     mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.0/data/NadekoBot_old.db" 1>/dev/null 2>&1
-	mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot_old.db" 1>/dev/null 2>&1
+    mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot_old.db" 1>/dev/null 2>&1
     mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot_old.db" 1>/dev/null 2>&1
     echo ""
     echo "Database copied to the new version"

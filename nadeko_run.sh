@@ -5,12 +5,11 @@ echo "Mirai was here."
 root=$(pwd)
 youtube-dl -U
 
-if hash dotnet 2>/dev/null
-then
-	echo "Dotnet installed."
+if hash dotnet 2>/dev/null; then
+    echo "Dotnet installed."
 else
-	echo "Dotnet is not installed. Please install dotnet."
-	exit 1
+    echo "Dotnet is not installed. Please install dotnet."
+    exit 1
 fi
 cd "$root/NadekoBot"
 dotnet restore
