@@ -37,6 +37,7 @@ fi
 # Makes it possible to cleanly exit the installer by cleaning up files that
 # aren't required unless currently being run.
 clean_exit() {
+    echo ""
     # Removes files that don't need to stay on the system unless being run,
     # then exits the installer
 }
@@ -55,6 +56,7 @@ trap 'echo -e "\n\nScript forcefully stopped"
 # Downloads latest version of 'linuxAIO.sh' if $linuxAIO_revision and 
 # $current_linuxAIO_revision aren't of equal value.
 if [[ $linuxAIO_revision != "$current_linuxAIO_revision" ]]; then
+    echo ""
     # Refer to comment above if statement for explanation
 fi
 
