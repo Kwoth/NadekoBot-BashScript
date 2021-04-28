@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# The master/main installer for macOS and Linux Distributions.
+#
+########################################################################################
+#### [ Main ]
+
 
 while true; do
     echo "Welcome to NadekoBot."
@@ -41,7 +47,11 @@ while true; do
             ;;
         *)
             clear -x
-            echo "${red}Invalid input: '$choice' is not a valid option$nc" >&2
+            echo "${_RED}Invalid input: '$choice' is not a valid option$_NC" >&2
             ;;
     esac
 done
+
+
+#### End of [ Main ]
+################################################################################
