@@ -10,7 +10,7 @@
 
 # Used to keep track of changes to 'linuxAIO.sh'.
 # Refer to the '[ Prepping ]' section of this script for more information.
-current__LINUXAIO_REVISION="9"
+current_linuxAIO_revision="10"
 
 export _INSTALLER_PREP_PID=$$
 
@@ -70,14 +70,14 @@ trap 'echo -e "\n\nScript forcefully stopped"
 
 
 ## Downloads latest version of 'linuxAIO.sh' if $_LINUXAIO_REVISION and 
-## $current__LINUXAIO_REVISION aren't of equal value.
-if [[ $_LINUXAIO_REVISION != "$current__LINUXAIO_REVISION" ]]; then
+## $current_linuxAIO_revision aren't of equal value.
+if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
     ####
     # MORE INFO:
     #
     # Since 'linuxAIO.sh' remains on the user's system, any changes to the code
     # that are pushed to github are never applied. whenever this
-    # $_LINUXAIO_REVISION and $current__LINUXAIO_REVISION do not match, the newest
+    # $_LINUXAIO_REVISION and $current_linuxAIO_revision do not match, the newest
     # version of 'linuxAIO.sh' is retrieved from github.
     ####
 
