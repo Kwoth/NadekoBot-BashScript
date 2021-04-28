@@ -9,8 +9,13 @@
 #### The variables below are for dev/testing purpouses (!!! DO NOT MODIFY !!!).
 
 
-export linuxAIO_revision="9"                                # Keeps track of changes to 'linuxAIO.sh'.
-export installer_repo="StrangeRanger/NadekoBot-BashScript"  # Determines which repo is used.
+# Used to keep track of changes to 'linuxAIO.sh'.
+# TODO: Maybe change this comment???
+# Refer to the comments above the variable 'current_linuxAIO_revision' inisde of
+# 'installer_prep.sh' for more information.
+export linuxAIO_revision="9"
+# Determines which repository from what user is used by the installer.
+installer_repo="StrangeRanger/NadekoBot-BashScript"
 
 
 #### End of [ Development Variables ]
@@ -25,7 +30,7 @@ export installer_repo="StrangeRanger/NadekoBot-BashScript"  # Determines which r
 # dev    = Non-production ready code (may break your system)
 #
 # Default: master
-export installer_branch="testing"
+installer_branch="testing"
 
 # Determines whether or not the installer can be run as the root user:
 # true  = can be run with root privilege
@@ -37,10 +42,19 @@ allow_run_as_root=false
 
 #### End of [ Configuration Variables ]
 ################################################################################
+#### [ Variables ]
+#### Variables that aren't Development or Configurable specific.
+
+
+export raw_url="https://raw.githubusercontent.com/$installer_repo/$installer_branch"
+
+
+#### End of [ Variables ]
+################################################################################
 #### [ Main ]
 
 
-# Checks if the script was executed with root privilege.
+# If executed with root privilege and $allow_run_as_root is false...
 if [[ $EUID = 0 ]] && [[ $allow_run_as_root = false ]]; then
     echo "\033[1;31mPlease run this script without root privilege" >&2
     echo "\033[0;36mWhile you will be performing specific tasks with root" \
@@ -51,8 +65,7 @@ if [[ $EUID = 0 ]] && [[ $allow_run_as_root = false ]]; then
 fi
 
 echo "Downloading the latest installer..."
-curl https://raw.githubusercontent.com/"$installer_repo"/"$installer_branch"/installer_prep.sh \
-        -o installer_prep.sh || {
+curl "$raw_url"/installer_prep.sh -o installer_prep.sh || {
     echo "Failed to download 'installer_prep.sh'" >&2
     echo -e "\nExiting..."
     exit 1
