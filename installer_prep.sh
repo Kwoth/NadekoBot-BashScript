@@ -15,14 +15,7 @@
 # Refer to the '[ Prepping ]' section of this script for more information.
 current_linuxAIO_revision="9"
 
-export yellow=$'\033[1;33m'
-export green=$'\033[0;32m'
-export cyan=$'\033[0;36m'
-export red=$'\033[1;31m'
-export nc=$'\033[0m'
-export clrln=$'\r\033[K'
-export grey=$'\033[0;90m'
-export installer_prep_pid=$$
+export _INSTALLER_PREP_PID=$$
 
 # The '--no-hostname' flag for journalctl only works with systemd 230 and later.
 if (($(journalctl --version | grep -oP "[0-9]+" | head -1) >= 230)) 2>/dev/null; then
@@ -49,7 +42,7 @@ clean_exit() {
     ####
 
     # Files to be removed.
-    local installer_files=("credentials_setup.sh" "installer_prep.sh"
+    local installer_files=("c_REDentials_setup.sh" "installer_prep.sh"
         "prereqs_installer.sh" "nadeko_latest_installer.sh"
         "nadeko_master_installer.sh")
 
@@ -95,26 +88,26 @@ if [[ $linuxAIO_revision != "$current_linuxAIO_revision" ]]; then
     # in the new 'linuxAIO.sh'.
     installer_branch=$(grep 'export installer_branch=' linuxAIO.sh | awk -F '"' '{print $2}');
 
-    echo "$yellow'linuxAIO.sh' is not up to date$nc"
+    echo "$_YELLOW'linuxAIO.sh' is not up to date$_NC"
     echo "Downloading latest 'linuxAIO.sh'..."
-    curl "$raw_url"/linuxAIO.sh -o linuxAIO.sh || {
-        echo "${red}Failed to download latest 'linuxAIO.sh'...$nc" >&2
+    curl "$_RAW_URL"/linuxAIO.sh -o linuxAIO.sh || {
+        echo "${_RED}Failed to download latest 'linuxAIO.sh'...$_NC" >&2
         clean_exit "1" "Exiting" "true"
     }
 
     echo "Applying set configurations to 'linuxAIO.sh'..."
     sed -i "s/export installer_branch=.*/export installer_branch=\"$installer_branch\"/" linuxAIO.sh
     sudo chmod +x linuxAIO.sh  # Set execution permission
-    echo "${cyan}Re-execute 'linuxAIO.sh' to continue$nc"
+    echo "${_CYAN}Re-execute 'linuxAIO.sh' to continue$_NC"
     # TODO: Figure out a way to get exec to work, instead of exiting script
     clean_exit "0" "Exiting" "true"
 fi
 
 # Change the working directory to the location of the executed scrpt.
 cd "$(dirname "$0")" || {
-    echo "${red}Failed to change working directory" >&2
-    echo "${cyan}Change your working directory to that of the executed" \
-        "script$nc"
+    echo "${_RED}Failed to change working directory" >&2
+    echo "${_CYAN}Change your working directory to that of the executed" \
+        "script$_NC"
     clean_exit "1" "Exiting" "true"
 }
 
@@ -173,12 +166,12 @@ execute_master_installer() {
 
     supported=true
 
-    curl -s "$raw_url"/nadeko_master_installer.sh -o nadeko_master_installer.sh || {
-        echo "${red}Failed to download 'nadeko_master_installer.sh'$nc" >&2
+    curl -s "$_RAW_URL"/nadeko_master_installer.sh -o nadeko_master_installer.sh || {
+        echo "${_RED}Failed to download 'nadeko_master_installer.sh'$_NC" >&2
         clean_exit "1" "Exiting" "true"
     }
     sudo chmod +x nadeko_master_installer.sh && ./nadeko_master_installer.sh || {
-        echo "${red}Failed to execute 'nadeko_master_installer.sh'$nc" >&2
+        echo "${_RED}Failed to execute 'nadeko_master_installer.sh'$_NC" >&2
         clean_exit "1" "Exiting" "true"
     }
 }
@@ -251,8 +244,8 @@ fi
 ## Provides the user with the option to continue, even if their system isn't officially
 ## supported.
 if [[ $supported = false ]]; then
-    echo "${red}Your operating system/Linux Distribution is not OFFICIALLY supported" \
-        "the installation, setup, and/or use of NadekoBot$nc" >&2
+    echo "${_RED}Your operating system/Linux Distribution is not OFFICIALLY supported" \
+        "the installation, setup, and/or use of NadekoBot$_NC" >&2
     read -rp "Would you like to continue with the installation anyways? [y/N] " choice
     choice=$(echo "$choice" | tr '[A-Z]' '[a-z]')  # Convert user input to lowercase.
     case "$choice" in

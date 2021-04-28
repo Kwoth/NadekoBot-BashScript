@@ -44,7 +44,14 @@ allow_run_as_root=false
 #### Variables that aren't Development or Configurable specific.
 
 
-export raw_url="https://raw.githubusercontent.com/$installer_repo/$installer_branch"
+export _YELLOW=$'\033[1;33m'
+export _GREEN=$'\033[0;32m'
+export _CYAN=$'\033[0;36m'
+export _RED=$'\033[1;31m'
+export _NC=$'\033[0m'
+export _CLRLN=$'\r\033[K'
+export _GREY=$'\033[0;90m'
+export _RAW_URL="https://raw.githubusercontent.com/$installer_repo/$installer_branch"
 
 
 #### End of [ Variables ]
@@ -54,17 +61,17 @@ export raw_url="https://raw.githubusercontent.com/$installer_repo/$installer_bra
 
 # If executed with root privilege and $allow_run_as_root is false...
 if [[ $EUID = 0 ]] && [[ $allow_run_as_root = false ]]; then
-    echo "\033[1;31mPlease run this script without root privilege" >&2
-    echo "\033[0;36mWhile you will be performing specific tasks with root" \
+    echo "${_RED}Please run this script without root privilege" >&2
+    echo "${_CYAN}While you will be performing specific tasks with root" \
         "privilege, running the installer in it's entirety as root is not" \
-        "recommended\033[0m"
+        "recommended$_NC"
     echo -e "\nExiting..."
     exit 1
 fi
 
 echo "Downloading the latest installer..."
-curl "$raw_url"/installer_prep.sh -o installer_prep.sh || {
-    echo "Failed to download 'installer_prep.sh'" >&2
+curl "$_RAW_URL"/installer_prep.sh -o installer_prep.sh || {
+    echo "${_RED}Failed to download 'installer_prep.sh'$_NC" >&2
     echo -e "\nExiting..."
     exit 1
 }
