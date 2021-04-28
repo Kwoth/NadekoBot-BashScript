@@ -1,28 +1,26 @@
 #!/bin/bash
 #
-# linuxAIO acts as the intermediary between the system NadekoBot is being hosted
-# on and the 'installer_prep.sh'. To prevent any conflicts with updates to
-# the installer, this script has as little code as deemed necessary.
+# linuxAIO acts as the intermediary between the system NadekoBot is being hosted on and
+# the 'installer_prep.sh'. To prevent any conflicts with updates to the installer, this
+# script has as little code as deemed necessary.
 #
-################################################################################
+########################################################################################
 #### [ Development Variables ]
 #### The variables below are for dev/testing purpouses (!!! DO NOT MODIFY !!!).
 
 
 # Used to keep track of changes to 'linuxAIO.sh'.
-# TODO: Maybe change this comment???
-# Refer to the comments above the variable 'current_linuxAIO_revision' inisde of
-# 'installer_prep.sh' for more information.
+# Refer to the '[ Prepping ]' section of 'installer_prep.sh' for more information.
 export linuxAIO_revision="9"
 # Determines which repository from what user is used by the installer.
 installer_repo="StrangeRanger/NadekoBot-BashScript"
 
 
 #### End of [ Development Variables ]
-################################################################################
+########################################################################################
 #### [ Configuration Variables ]
-#### The variables below are used to modify some of the actions of the installer
-#### and CAN BE modified by the end user.
+#### The variables below are used to modify some of the actions of the installer and CAN
+#### BE modified by the end user.
 
 
 # Determines from which branch the installer will use.
@@ -41,7 +39,7 @@ allow_run_as_root=false
 
 
 #### End of [ Configuration Variables ]
-################################################################################
+########################################################################################
 #### [ Variables ]
 #### Variables that aren't Development or Configurable specific.
 
@@ -50,7 +48,7 @@ export raw_url="https://raw.githubusercontent.com/$installer_repo/$installer_bra
 
 
 #### End of [ Variables ]
-################################################################################
+########################################################################################
 #### [ Main ]
 
 
@@ -58,7 +56,7 @@ export raw_url="https://raw.githubusercontent.com/$installer_repo/$installer_bra
 if [[ $EUID = 0 ]] && [[ $allow_run_as_root = false ]]; then
     echo "\033[1;31mPlease run this script without root privilege" >&2
     echo "\033[0;36mWhile you will be performing specific tasks with root" \
-        "priviledge, running the installer in it's entirety as root is not" \
+        "privilege, running the installer in it's entirety as root is not" \
         "recommended\033[0m"
     echo -e "\nExiting..."
     exit 1
@@ -74,4 +72,4 @@ sudo chmod +x installer_prep.sh && ./installer_prep.sh
 
 
 #### End of [ Main ]
-################################################################################
+########################################################################################
