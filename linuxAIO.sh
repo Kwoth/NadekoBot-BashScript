@@ -11,7 +11,7 @@
 
 # Used to keep track of changes to 'linuxAIO.sh'.
 # Refer to the '[ Prepping ]' section of 'installer_prep.sh' for more information.
-export linuxAIO_revision="9"
+export _LINUXAIO_REVISION="10"
 # Determines which repository from what user is used by the installer.
 installer_repo="StrangeRanger/NadekoBot-BashScript"
 

@@ -3,9 +3,6 @@
 # This script looks at the operating system, architecture, bit type, etc., to
 # determine whether or not the system is supported by NadekoBot. Once the system
 # is deemed as supported, the master installer will be downloaded and executed.
-#
-# Note: All variables not defined in this script, are exported from
-# 'linuxAIO.sh'.
 # 
 ########################################################################################
 #### [ Exported and/or Globally Used Variables ]
@@ -13,13 +10,13 @@
 
 # Used to keep track of changes to 'linuxAIO.sh'.
 # Refer to the '[ Prepping ]' section of this script for more information.
-current_linuxAIO_revision="9"
+current__LINUXAIO_REVISION="9"
 
 export _INSTALLER_PREP_PID=$$
 
 # The '--no-hostname' flag for journalctl only works with systemd 230 and later.
 if (($(journalctl --version | grep -oP "[0-9]+" | head -1) >= 230)) 2>/dev/null; then
-    export no_hostname="--no-hostname"
+    export _NO_HOSTNAME="--no-hostname"
 fi
 
 
@@ -72,15 +69,15 @@ trap 'echo -e "\n\nScript forcefully stopped"
 #### [ Prepping ]
 
 
-## Downloads latest version of 'linuxAIO.sh' if $linuxAIO_revision and 
-## $current_linuxAIO_revision aren't of equal value.
-if [[ $linuxAIO_revision != "$current_linuxAIO_revision" ]]; then
+## Downloads latest version of 'linuxAIO.sh' if $_LINUXAIO_REVISION and 
+## $current__LINUXAIO_REVISION aren't of equal value.
+if [[ $_LINUXAIO_REVISION != "$current__LINUXAIO_REVISION" ]]; then
     ####
     # MORE INFO:
     #
     # Since 'linuxAIO.sh' remains on the user's system, any changes to the code
     # that are pushed to github are never applied. whenever this
-    # $linuxAIO_revision and $current_linuxAIO_revision do not match, the newest
+    # $_LINUXAIO_REVISION and $current__LINUXAIO_REVISION do not match, the newest
     # version of 'linuxAIO.sh' is retrieved from github.
     ####
 
