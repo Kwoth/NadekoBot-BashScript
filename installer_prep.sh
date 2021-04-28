@@ -39,7 +39,7 @@ clean_exit() {
     ####
 
     # Files to be removed.
-    local installer_files=("c_REDentials_setup.sh" "installer_prep.sh"
+    local installer_files=("credentials_setup.sh" "installer_prep.sh"
         "prereqs_installer.sh" "nadeko_latest_installer.sh"
         "nadeko_master_installer.sh")
 
@@ -108,8 +108,8 @@ cd "$(dirname "$0")" || {
     clean_exit "1" "Exiting" "true"
 }
 
-export working_dir="$PWD"
-export installer_prep="$working_dir/installer_prep.sh"
+export _WORKING_DIR="$PWD"
+export _INSTALLER_PREP="$_WORKING_DIR/installer_prep.sh"
 
 
 #### End of [ Prepping ]
@@ -128,29 +128,29 @@ detect_sys_info() {
     ## For Linux
     if [[ -f /etc/os-release ]]; then
         . /etc/os-release
-        distro="$ID"
-        ver="$VERSION_ID"  # Version: x.x.x...
-        sver=${ver//.*/}   # Version: x
+        _DISTRO="$ID"
+        _VER="$VERSION_ID"  # Version: x.x.x...
+        _SVER=${_VER//.*/}   # Version: x
         pname="$PRETTY_NAME"
-        codename="$VERSION_CODENAME"
+        _CODENAME="$VERSION_CODENAME"
     ## For macOS
     else
-        distro=$(uname -s)
-        if [[ $distro = "Darwin" ]]; then
-            ver=$(sw_vers -productVersion)  # macOS version: x.x.x
-            sver=${ver%.*}                  # macOS version: x.x
+        _DISTRO=$(uname -s)
+        if [[ $_DISTRO = "Darwin" ]]; then
+            _VER=$(sw_vers -productVersion)  # macOS version: x.x.x
+            _SVER=${_VER%.*}                  # macOS version: x.x
             pname="macOS"
         else
-            ver=$(uname -r)
+            _VER=$(uname -r)
         fi
     fi
 
     ## Identify bit and architecture type.
     case $(uname -m) in
-        x86_64) bits="64"; arch="x64" ;;
-        i*86)   bits="32"; arch="x86" ;;
-        armv*)  bits="32"; arch="?" ;;
-        *)      bits="?";  arch="?" ;;
+        x86_64) _BITS="64"; _ARCH="x64" ;;
+        i*86)   _BITS="32"; _ARCH="x86" ;;
+        armv*)  _BITS="32"; _ARCH="?" ;;
+        *)      _BITS="?";  _ARCH="?" ;;
     esac
 }
 
@@ -182,22 +182,22 @@ execute_master_installer() {
 clear -x
 
 detect_sys_info
-export distro sver ver arch bits codename
+export _DISTRO _SVER _VER _ARCH _BITS _CODENAME
 export -f clean_exit
 
 echo "SYSTEM INFO"
-echo "Bit Type: $bits"
-echo "Architecture: $arch"
+echo "Bit Type: $_BITS"
+echo "Architecture: $_ARCH"
 printf "Distro: "
-# Use $distro if $pname is empty.
-if [[ -n $pname ]]; then echo "$pname"; else echo "$distro"; fi
-echo "Distro Version: $ver"
+# Use $_DISTRO if $pname is empty.
+if [[ -n $pname ]]; then echo "$pname"; else echo "$_DISTRO"; fi
+echo "Distro Version: $_VER"
 echo ""
 
 ## Checks if Nadeko and installer are compatible with the operating system.
-if [[ $distro = "ubuntu" ]]; then
-    if [[ $bits = 64 ]]; then  # A.1. Forcing 64 bit architecture
-        case "$ver" in
+if [[ $_DISTRO = "ubuntu" ]]; then
+    if [[ $_BITS = 64 ]]; then  # A.1. Forcing 64 bit architecture
+        case "$_VER" in
             16.04) execute_master_installer ;;
             18.04) execute_master_installer ;;
             20.04) execute_master_installer ;;
@@ -206,9 +206,9 @@ if [[ $distro = "ubuntu" ]]; then
     else
         supported=false
     fi
-elif [[ $distro = "debian" ]]; then
-    if [[ $bits = 64 ]]; then  # A.1.
-        case "$sver" in
+elif [[ $_DISTRO = "debian" ]]; then
+    if [[ $_BITS = 64 ]]; then  # A.1.
+        case "$_SVER" in
             9)  execute_master_installer ;;
             10) execute_master_installer ;;
             *)  supported=false ;;
@@ -216,9 +216,9 @@ elif [[ $distro = "debian" ]]; then
     else
         supported=false
     fi
-elif [[ $distro = "linuxmint" ]]; then
-    if [[ $bits = 64 ]]; then  # A.1.
-        case "$sver" in
+elif [[ $_DISTRO = "linuxmint" ]]; then
+    if [[ $_BITS = 64 ]]; then  # A.1.
+        case "$_SVER" in
             18) execute_master_installer ;;
             19) execute_master_installer ;;
             20) execute_master_installer ;;
@@ -227,8 +227,8 @@ elif [[ $distro = "linuxmint" ]]; then
     else
         supported=false
     fi
-elif [[ $distro = "Darwin" ]]; then
-    case "$sver" in
+elif [[ $_DISTRO = "Darwin" ]]; then
+    case "$_SVER" in
         10.14) execute_master_installer ;;
         10.15) execute_master_installer ;;
         11.0)  execute_master_installer ;;
