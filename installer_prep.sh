@@ -84,7 +84,8 @@ if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
 
     # Save the value of 'installer_branch' specified in 'linuxAIO.sh', to be set in the
     # new 'linuxAIO.sh'.
-    installer_branch=$(grep '^installer_branch=".*"' linuxAIO.sh);
+    installer_branch=$(grep '^installer_branch=".*"' linuxAIO.sh)
+    allow_run_as_root=$(grep '^allow_run_as_root=.*' linuxAIO.sh)
 
     echo "$_YELLOW'linuxAIO.sh' is not up to date$_NC"
     echo "Downloading latest 'linuxAIO.sh'..."
@@ -94,8 +95,13 @@ if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
     }
 
     echo "Applying set configurations to 'linuxAIO.sh'..."
+    # Sets $installer_branch variable.
     sed -i "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh ||      # Sed for linux
         sed -i '' "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh  # Sed for macOS
+    # Sets $allow_run_as_root variable.
+    sed -i "s/installer_branch=\".*\"/$allow_run_as_root/" linuxAIO.sh ||      # Sed for linux
+        sed -i '' "s/installer_branch=\".*\"/$allow_run_as_root/" linuxAIO.sh  # Sed for macOS
+
     sudo chmod +x linuxAIO.sh  # Set execution permission
     echo "${_CYAN}Re-execute 'linuxAIO.sh' to continue$_NC"
     # TODO: Figure out a way to get exec to work, instead of exiting script
