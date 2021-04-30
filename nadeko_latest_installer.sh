@@ -137,10 +137,10 @@ cd NadekoBot || {
     echo "${_RED}Failed to change working directory$_NC" >&2
     clean_up "true"
 }
-dotnet restore || {
-    echo "${_RED}Failed to restore dependencies$_NC" >&2
-    clean_up "true"
-}
+#dotnet restore || {
+#    echo "${_RED}Failed to restore dependencies$_NC" >&2
+#    clean_up "true"
+#}
 
 echo "Publishing NadekoBot Release..."
 dotnet publish -c Release -o output || {
