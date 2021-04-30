@@ -24,7 +24,8 @@ clean_up() {
     #
     # Cleans up any loose ends/left over files.
     #
-    # @param $1 .......
+    # @param $1 Determines whether or not this function kills the script's parent
+    #           processes.
     ####
 
     # Files to be removed.
@@ -35,7 +36,7 @@ clean_up() {
     echo "Cleaning up files and directories..."
     # NOTE: Unsure if this if statement is needed.
     if [[ -d $_WORKING_DIR/tmp ]]; then rm -rf "$_WORKING_DIR"/tmp; fi
-    # Remove the new code that is stored in the NadekoBot folder.
+    # Remove the NadekoBot code that was just downloaded.
     if [[ -d $_WORKING_DIR/NadekoBot ]]; then rm -rf "$_WORKING_DIR"/NadekoBot; fi
     ## Remove all files in the 'installer_files' array, if they exist.
     for file in "${installer_files[@]}"; do
@@ -184,21 +185,23 @@ if [[ -d NadekoBot.old && -d NadekoBot.bak || ! -d NadekoBot.old && -d NadekoBot
     rm -rf NadekoBot.old && mv -f NadekoBot.bak NadekoBot.old
 fi
 
-if [[ $_DISTRO != "Darwin" ]]; then
-    if [[ -f $nadeko_service ]]; then
-        echo "Updating '$nadeko_service_name'..."
-        create_or_update="update"
-    else
-        echo "Creating '$nadeko_service_name'..."
-        create_or_update="create"
-    fi
-
-    echo -e "$nadeko_service_content" | sudo tee "$nadeko_service" &>/dev/null &&
-            sudo systemctl daemon-reload || {
-        echo "${_RED}Failed to $create_or_update '$nadeko_service_name'$_NC" >&2
-        b_s_update="Failed"
-    }
-fi
+## NOTE: The commented code below will only be applicable in later PRs. Please ignore it
+## for now.
+#if [[ $_DISTRO != "Darwin" ]]; then
+#    if [[ -f $nadeko_service ]]; then
+#        echo "Updating '$nadeko_service_name'..."
+#        create_or_update="update"
+#    else
+#        echo "Creating '$nadeko_service_name'..."
+#        create_or_update="create"
+#    fi
+#
+#    echo -e "$nadeko_service_content" | sudo tee "$nadeko_service" &>/dev/null &&
+#            sudo systemctl daemon-reload || {
+#        echo "${_RED}Failed to $create_or_update '$nadeko_service_name'$_NC" >&2
+#        b_s_update="Failed"
+#    }
+#fi
 
 
 ######## End of [ Create Backup, Then Update ]
