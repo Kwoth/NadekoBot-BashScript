@@ -25,7 +25,7 @@ installer_repo="StrangeRanger/NadekoBot-BashScript"
 
 # Determines from which branch the installer will use.
 # master = The latest stable code
-# dev    = Non-production ready code (may break your system)
+# dev    = Non-production ready code
 #
 # Default: master
 installer_branch="testing"
@@ -49,8 +49,8 @@ export _GREEN=$'\033[0;32m'
 export _CYAN=$'\033[0;36m'
 export _RED=$'\033[1;31m'
 export _NC=$'\033[0m'
-export _CLRLN=$'\r\033[K'
 export _GREY=$'\033[0;90m'
+export _CLRLN=$'\r\033[K'
 export _RAW_URL="https://raw.githubusercontent.com/$installer_repo/$installer_branch"
 
 
@@ -62,9 +62,8 @@ export _RAW_URL="https://raw.githubusercontent.com/$installer_repo/$installer_br
 # If executed with root privilege and $allow_run_as_root is false...
 if [[ $EUID = 0 ]] && [[ $allow_run_as_root = false ]]; then
     echo "${_RED}Please run this script without root privilege" >&2
-    echo "${_CYAN}While you will be performing specific tasks with root" \
-        "privilege, running the installer in it's entirety as root is not" \
-        "recommended$_NC"
+    echo "${_CYAN}While you will be performing specific tasks with root privilege," \
+        "running the installer in it's entirety as root is not recommended$_NC"
     echo -e "\nExiting..."
     exit 1
 fi

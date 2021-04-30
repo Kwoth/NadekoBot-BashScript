@@ -12,6 +12,7 @@
 # Refer to the '[ Prepping ]' section of this script for more information.
 current_linuxAIO_revision="10"
 
+# Keeps track of this script's process id, incase it needs to be manually killed.
 export _INSTALLER_PREP_PID=$$
 
 # The '--no-hostname' flag for journalctl only works with systemd 230 and later.
@@ -29,13 +30,13 @@ clean_exit() {
     ####
     # FUNCTION INFO:
     #
-    # Cleanly exit the installer by removing files that aren't required unless
-    # the installer is currently being run.
+    # Cleanly exit the installer by removing files that aren't required unless the
+    # installer is currently being run.
     #
     # @param $1 Exit status code.
     # @param $2 Output text.
-    # @param $3 Determines if 'Cleaning up...' needs to be printed with a
-    #           new-line symbol.
+    # @param $3 Determines if 'Cleaning up...' needs to be printed with a new-line
+    #           symbol.
     ####
 
     # Files to be removed.
@@ -75,14 +76,14 @@ if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
     ####
     # MORE INFO:
     #
-    # Since 'linuxAIO.sh' remains on the user's system, any changes to the code
-    # that are pushed to github are never applied. whenever this
-    # $_LINUXAIO_REVISION and $current_linuxAIO_revision do not match, the newest
-    # version of 'linuxAIO.sh' is retrieved from github.
+    # Since 'linuxAIO.sh' remains on the user's system, any changes to the code that are
+    # pushed to github are never applied. whenever this $_LINUXAIO_REVISION and
+    # $current_linuxAIO_revision do not match, the newest version of 'linuxAIO.sh' is
+    # retrieved from github.
     ####
 
-    # Save the value of 'installer_branch' specified in 'linuxAIO.sh', to be set
-    # in the new 'linuxAIO.sh'.
+    # Save the value of 'installer_branch' specified in 'linuxAIO.sh', to be set in the
+    # new 'linuxAIO.sh'.
     installer_branch=$(grep '^installer_branch=".*"' linuxAIO.sh);
 
     echo "$_YELLOW'linuxAIO.sh' is not up to date$_NC"
@@ -93,8 +94,8 @@ if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
     }
 
     echo "Applying set configurations to 'linuxAIO.sh'..."
-    sed -i "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh || 
-        sed -i '' "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh
+    sed -i "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh ||      # Sed for linux
+        sed -i '' "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh  # Sed for macOS
     sudo chmod +x linuxAIO.sh  # Set execution permission
     echo "${_CYAN}Re-execute 'linuxAIO.sh' to continue$_NC"
     # TODO: Figure out a way to get exec to work, instead of exiting script
@@ -104,8 +105,7 @@ fi
 # Change the working directory to the location of the executed scrpt.
 cd "$(dirname "$0")" || {
     echo "${_RED}Failed to change working directory" >&2
-    echo "${_CYAN}Change your working directory to that of the executed" \
-        "script$_NC"
+    echo "${_CYAN}Change your working directory to that of the executed script$_NC"
     clean_exit "1" "Exiting" "true"
 }
 
@@ -122,24 +122,25 @@ detect_sys_info() {
     ####
     # FUNCTION INFO:
     #
-    # Identify the operating system, version number, architecture, bit type (32
-    # or 64), etc.
+    # Identify the operating system, version number, architecture, bit type (32 or 64),
+    # etc.
     ####
 
     ## For Linux
     if [[ -f /etc/os-release ]]; then
         . /etc/os-release
+
+        pname="$PRETTY_NAME"
         _DISTRO="$ID"
         _VER="$VERSION_ID"  # Version: x.x.x...
-        _SVER=${_VER//.*/}   # Version: x
-        pname="$PRETTY_NAME"
+        _SVER=${_VER//.*/}  # Version: x
         _CODENAME="$VERSION_CODENAME"
     ## For macOS
     else
         _DISTRO=$(uname -s)
         if [[ $_DISTRO = "Darwin" ]]; then
             _VER=$(sw_vers -productVersion)  # macOS version: x.x.x
-            _SVER=${_VER%.*}                  # macOS version: x.x
+            _SVER=${_VER%.*}                 # macOS version: x.x
             pname="macOS"
         else
             _VER=$(uname -r)
@@ -244,7 +245,7 @@ fi
 if [[ $supported = false ]]; then
     echo "${_RED}Your operating system/Linux Distribution is not OFFICIALLY supported" \
         "the installation, setup, and/or use of NadekoBot$_NC" >&2
-    read -rp "Would you like to continue with the installation anyways? [y/N] " choice
+    read -rp "Would you like to continue anyways? [y/N] " choice
     choice=$(echo "$choice" | tr '[A-Z]' '[a-z]')  # Convert user input to lowercase.
     case "$choice" in
         y|yes) clear -x; execute_master_installer ;;
