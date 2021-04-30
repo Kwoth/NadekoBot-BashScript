@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 As of right now, no features will be added, though this rewrite will include bug fixes and code refactoring.
 
 - Complete rewrite...
-- 'installer_prep.sh' makes sure, just as it does for '$installer_branch', the $allow_run_as_root is set to it's specified state... 
+- Now sets $allow_run_as_root the same way that $installer_branch is set
 ## [2.1.1] - 2021-03-26
 
 ### Added
