@@ -152,38 +152,41 @@ cd "$_WORKING_DIR" || {
     clean_up "true"
 }
 
-if [[ -d NadekoBot.old && -d NadekoBot.bak || ! -d NadekoBot.old && -d NadekoBot.bak ]]; then
-    echo "Copping 'credentials.json' to new version..."
-    cp -f "$bak_credentials" "$new_credentials" &>/dev/null
-    echo "Copping database to the new version..."
-    cp -RT "$bak_database" "$new_database" &>/dev/null
-    
-    ## Checks if an old netcoreapp version exists, then moves the database in it, to the
-    ## new netcorapp version.
-    while read -r netcoreapp; do
-        if [[ $netcoreapp != "$notcoreapp_version" ]]; then
-            echo "${_YELLOW}WARNING: Old netcoreapp version detected$_NC"
-            echo "Moving database to new netcoreapp version..."
-            cp -RT "$new_database"/Release/"$netcoreapp"/data/NadekoBot.db \
-                    "$new_database"/Release/"$notcoreapp_version"/data/NadekoBot.db \
-                    &>/dev/null || {
-                echo "${_RED}Failed to move database$_NC" >&2
-                clean_up "true"
-            }
-            echo "Removing '$netcoreapp'..."
-            rm -rf "$new_database"/Release/"$netcoreapp" || {
-                echo "${_RED}Failed to move '$netcoreapp' to active directory" >&2
-                echo -e "${_CYAN}Please manually remove '$netcoreapp' before continuing" \
-                    "\nLocation: $_WORKING_DIR/$new_database/Release/$netcoreapp$_NC"
-            }
-        fi
-    done < <(ls "$_WORKING_DIR"/"$new_database"/Release/)
-
-    echo "Copping other data to the new version..."
-    cp -RT NadekoBot.bak/src/NadekoBot/data/ NadekoBot/src/NadekoBot/data/
-    # TODO: Add error handling???
-    rm -rf NadekoBot.old && mv -f NadekoBot.bak NadekoBot.old
-fi
+## NOTE: The commented code below will deals with moving database and credentials.json
+## their their new location, but because I don't completely understand where they need
+## go at the moment, I will be coming back to this section
+#if [[ -d NadekoBot.old && -d NadekoBot.bak || ! -d NadekoBot.old && -d NadekoBot.bak ]]; then
+#    echo "Copping 'credentials.json' to new version..."
+#    cp -f "$bak_credentials" "$new_credentials" &>/dev/null
+#    echo "Copping database to the new version..."
+#    cp -RT "$bak_database" "$new_database" &>/dev/null
+#    
+#    ## Checks if an old netcoreapp version exists, then moves the database in it, to the
+#    ## new netcorapp version.
+#    while read -r netcoreapp; do
+#        if [[ $netcoreapp != "$notcoreapp_version" ]]; then
+#            echo "${_YELLOW}WARNING: Old netcoreapp version detected$_NC"
+#            echo "Moving database to new netcoreapp version..."
+#            cp -RT "$new_database"/Release/"$netcoreapp"/data/NadekoBot.db \
+#                    "$new_database"/Release/"$notcoreapp_version"/data/NadekoBot.db \
+#                    &>/dev/null || {
+#                echo "${_RED}Failed to move database$_NC" >&2
+#                clean_up "true"
+#            }
+#            echo "Removing '$netcoreapp'..."
+#            rm -rf "$new_database"/Release/"$netcoreapp" || {
+#                echo "${_RED}Failed to move '$netcoreapp' to active directory" >&2
+#                echo -e "${_CYAN}Please manually remove '$netcoreapp' before continuing" \
+#                    "\nLocation: $_WORKING_DIR/$new_database/Release/$netcoreapp$_NC"
+#            }
+#        fi
+#    done < <(ls "$_WORKING_DIR"/"$new_database"/Release/)
+#
+#    echo "Copping other data to the new version..."
+#    cp -RT NadekoBot.bak/src/NadekoBot/data/ NadekoBot/src/NadekoBot/data/
+#    # TODO: Add error handling???
+#    rm -rf NadekoBot.old && mv -f NadekoBot.bak NadekoBot.old
+#fi
 
 ## NOTE: The commented code below will only be applicable in later PRs. Please ignore it
 ## for now.
