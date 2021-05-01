@@ -44,6 +44,7 @@ allow_run_as_root=false
 #### Variables that aren't Development or Configurable specific.
 
 
+## Modify output text color.
 export _YELLOW=$'\033[1;33m'
 export _GREEN=$'\033[0;32m'
 export _CYAN=$'\033[0;36m'
@@ -51,6 +52,8 @@ export _RED=$'\033[1;31m'
 export _NC=$'\033[0m'
 export _GREY=$'\033[0;90m'
 export _CLRLN=$'\r\033[K'
+
+# URL to the raw version of a specified script.
 export _RAW_URL="https://raw.githubusercontent.com/$installer_repo/$installer_branch"
 
 

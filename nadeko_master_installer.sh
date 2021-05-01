@@ -4,13 +4,10 @@
 #
 ########################################################################################
 #### [ Variables and Functions ]
-#### The variables and functions below are designed specifically for either
-#### macOS or linux distribution.
 
 
+# Keeps track of this script's process id, in case it needs to be manually killed.
 export _NADEKO_MASTER_INSTALLER_PID=$$
-
-# More stuff to be added in later PRs.
 
 
 #### End of [ Variables and Functions ]
@@ -43,7 +40,8 @@ while true; do
             read -rp "Press [Enter] to begin."
             sudo chmod +x nadeko_latest_installer.sh && ./nadeko_latest_installer.sh
 
-            # Rexecutes the new/downloaded version of 'installer_prep.sh'
+            # Rexecutes the new/downloaded version of 'installer_prep.sh', so that all
+            # changes are applied.
             exec "$_INSTALLER_PREP"
             ;;
         2)

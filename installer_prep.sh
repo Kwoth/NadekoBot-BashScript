@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# This script looks at the operating system, architecture, bit type, etc., to
-# determine whether or not the system is supported by NadekoBot. Once the system
-# is deemed as supported, the master installer will be downloaded and executed.
+# This script looks at the operating system, architecture, bit type, etc., to determine
+# whether or not the system is supported by NadekoBot. Once the system is deemed as
+# supported, the master installer will be downloaded and executed.
 # 
 ########################################################################################
 #### [ Exported and/or Globally Used Variables ]
@@ -12,7 +12,7 @@
 # Refer to the '[ Prepping ]' section of this script for more information.
 current_linuxAIO_revision="10"
 
-# Keeps track of this script's process id, incase it needs to be manually killed.
+# Keeps track of this script's process id, in case it needs to be manually killed.
 export _INSTALLER_PREP_PID=$$
 
 # The '--no-hostname' flag for journalctl only works with systemd 230 and later.
@@ -82,8 +82,8 @@ if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
     # retrieved from github.
     ####
 
-    # Save the value of 'installer_branch' specified in 'linuxAIO.sh', to be set in the
-    # new 'linuxAIO.sh'.
+    ## Save the value of $installer_branch and $allow_run_as_root specified in
+    ## 'linuxAIO.sh', to be set in the new 'linuxAIO.sh'.
     installer_branch=$(grep '^installer_branch=".*"' linuxAIO.sh)
     allow_run_as_root=$(grep '^allow_run_as_root=.*' linuxAIO.sh)
 
@@ -135,7 +135,6 @@ detect_sys_info() {
     ## For Linux
     if [[ -f /etc/os-release ]]; then
         . /etc/os-release
-
         pname="$PRETTY_NAME"
         _DISTRO="$ID"
         _VER="$VERSION_ID"  # Version: x.x.x...
