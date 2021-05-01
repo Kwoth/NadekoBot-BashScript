@@ -111,7 +111,7 @@ if [[ -d /tmp/NuGetScratch && $_DISTRO != "Darwin" ]]; then
     # installer is currently being run under.
     sudo chown -R "$USER":"$USER" /tmp/NuGetScratch /home/"$USER"/.nuget || {
         echo "${_RED}Failed to to modify the ownership of '/tmp/NuGetScratch' and/or" \
-            "'/home/$USER/.nuget'" >&2
+            "'/home/$USER/.nuget'..." >&2
         # NOTE: Unsure if the echo is applicable or not. Maybe be removed in a future PR.
         echo "${_CYAN}You can ignore this if you were not prompted about locked" \
             "files/permission errors while attempting to download dependencies$_NC"
