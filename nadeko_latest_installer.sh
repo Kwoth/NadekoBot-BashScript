@@ -22,7 +22,9 @@ clean_up() {
     ####
     # FUNCTION INFO:
     #
-    # Cleans up any loose ends/left over files.
+    # If 'nadeko_latest_installer.sh', for whatever reason, is not able to completely
+    # update or download Nadeko, this function will cleanup any remaining files and
+    # restore the previous code and configurations.
     #
     # @param $1 Determines whether or not this function kills the script's parent
     #           processes.
@@ -34,7 +36,7 @@ clean_up() {
         "nadeko_master_installer.sh")
 
     echo "Cleaning up files and directories..."
-    # NOTE: Unsure if this if statement is needed.
+    # NOTE: Unsure if this if statement is needed. Might be removed in a later PR.
     if [[ -d $_WORKING_DIR/tmp ]]; then rm -rf "$_WORKING_DIR"/tmp; fi
     # Remove the NadekoBot code that was just downloaded.
     if [[ -d $_WORKING_DIR/NadekoBot ]]; then rm -rf "$_WORKING_DIR"/NadekoBot; fi
@@ -52,6 +54,7 @@ clean_up() {
         }
     fi
 
+    ## Kill the script's parent processes, if param $1 is true.
     if [[ $1 = true ]]; then
         echo "Killing parent processes..."
         kill -9 "$_NADEKO_MASTER_INSTALLER_PID" "$_INSTALLER_PREP_PID"
@@ -116,7 +119,7 @@ git clone -b 1.9 --recursive --depth 1 https://gitlab.com/Kwoth/NadekoBot || {
     clean_up "true"
 }
 
-# If the _DISTRO isn't Darwin and '/tmp/NuGetScratch' exists...
+# If the $_DISTRO isn't Darwin and '/tmp/NuGetScratch' exists...
 if [[ -d /tmp/NuGetScratch && $_DISTRO != "Darwin" ]]; then
     echo "Modifying ownership of '/tmp/NuGetScratch' and '/home/$USER/.nuget'"
     # Due to permission errors cropping up every now and then, especially when the
@@ -155,21 +158,33 @@ if [[ -d NadekoBot.old && -d NadekoBot.bak || ! -d NadekoBot.old && -d NadekoBot
     ## Checks if an old netcoreapp version exists, then moves the database in it, to the
     ## new netcorapp version.
     while read -r netcoreapp; do
-        if [[ $netcoreapp != "$notcoreapp_version" ]]; then
+        if [[ $netcoreapp != "$notcoreapp_version" &&
+                # Makes sure that there is a database to even move.
+                -f "$new_database"/Release/"$netcoreapp"/data/NadekoBot.db ]]; then
             echo "${_YELLOW}WARNING: Old netcoreapp version detected$_NC"
             echo "Moving database to new netcoreapp version..."
+
+            ## NOTE: This code will be removed in the future, since right now the
+            ## netcoreapp3.1 directory isn't created on it's own when building the
+            ## project.
+            if [[ ! -d $new_database/Release/$notcoreapp_version ]]; then
+                mkdir "$new_database"/Release/"$notcoreapp_version"
+                mkdir "$new_database"/Release/"$notcoreapp_version"/data/
+            fi
+
             cp -RT "$new_database"/Release/"$netcoreapp"/data/NadekoBot.db \
-                    "$new_database"/Release/"$notcoreapp_version"/data/NadekoBot.db \
-                    &>/dev/null || {
+                    "$new_database"/Release/"$notcoreapp_version"/data/NadekoBot.db || {
                 echo "${_RED}Failed to move database$_NC" >&2
                 clean_up "true"
             }
-            echo "Removing '$netcoreapp'..."
-            rm -rf "$new_database"/Release/"$netcoreapp" || {
-                echo "${_RED}Failed to move '$netcoreapp' to active directory" >&2
-                echo -e "${_CYAN}Please manually remove '$netcoreapp' before continuing" \
-                    "\nLocation: $_WORKING_DIR/$new_database/Release/$netcoreapp$_NC"
-            }
+            ## Since NadekoBot still currently relies on netcoreapp2.1, the installer won't
+            ## delete it. This will obviously change when NadekoBot is updated.
+            #echo "Removing '$netcoreapp'..."
+            #rm -rf "$new_database"/Release/"$netcoreapp" || {
+            #    echo "${_RED}Failed to remove '$netcoreapp'" >&2
+            #    echo -e "${_CYAN}Please manually remove '$netcoreapp' before continuing" \
+            #        "\nLocation: $_WORKING_DIR/$new_database/Release/$netcoreapp$_NC"
+            #}
         fi
     done < <(ls "$_WORKING_DIR"/"$new_database"/Release/)
 
