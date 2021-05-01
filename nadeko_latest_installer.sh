@@ -6,10 +6,10 @@
 #### [ Variables ]
 
 
-bak_credentials="NadekoBot.bak/output/NadekoBot/credentials.json"
-new_credentials="NadekoBot/output/NadekoBot/credentials.json"
-bak_database="NadekoBot.bak/output/NadekoBot/bin/"
-new_database="NadekoBot/output/NadekoBot/bin/"
+bak_credentials="NadekoBot.bak/src/NadekoBot/credentials.json"
+new_credentials="NadekoBot/src/NadekoBot/credentials.json"
+bak_database="NadekoBot.bak/src/NadekoBot/bin/"
+new_database="NadekoBot/src/NadekoBot/bin/"
 notcoreapp_version="netcoreapp3.1"
 
 
