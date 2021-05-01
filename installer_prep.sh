@@ -96,11 +96,11 @@ if [[ $_LINUXAIO_REVISION != "$current_linuxAIO_revision" ]]; then
 
     echo "Applying set configurations to 'linuxAIO.sh'..."
     # Sets $installer_branch variable.
-    sed -i "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh ||      # Sed for linux
-        sed -i '' "s/installer_branch=\".*\"/$installer_branch/" linuxAIO.sh  # Sed for macOS
+    sed -i "s/^installer_branch=\".*\"/$installer_branch/" linuxAIO.sh ||      # Sed for linux
+        sed -i '' "s/^installer_branch=\".*\"/$installer_branch/" linuxAIO.sh  # Sed for macOS
     # Sets $allow_run_as_root variable.
-    sed -i "s/installer_branch=\".*\"/$allow_run_as_root/" linuxAIO.sh ||      # Sed for linux
-        sed -i '' "s/installer_branch=\".*\"/$allow_run_as_root/" linuxAIO.sh  # Sed for macOS
+    sed -i "s/^allow_run_as_root=.*/$allow_run_as_root/" linuxAIO.sh ||      # Sed for linux
+        sed -i '' "s/^allow_run_as_root=.*/$allow_run_as_root/" linuxAIO.sh  # Sed for macOS
 
     sudo chmod +x linuxAIO.sh  # Set execution permission
     echo "${_CYAN}Re-execute 'linuxAIO.sh' to continue$_NC"
