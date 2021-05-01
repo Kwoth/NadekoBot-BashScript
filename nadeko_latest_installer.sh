@@ -10,7 +10,7 @@ bak_credentials="NadekoBot.bak/output/NadekoBot/credentials.json"
 new_credentials="NadekoBot/output/NadekoBot/credentials.json"
 bak_database="NadekoBot.bak/output/NadekoBot/bin/"
 new_database="NadekoBot/output/NadekoBot/bin/"
-notcoreapp_version="netcoreapp2.1"  # TODO: Change to the appropriate version
+notcoreapp_version="netcoreapp3.1"
 
 
 #### End of [ Variables ]
@@ -132,17 +132,11 @@ if [[ -d /tmp/NuGetScratch && $_DISTRO != "Darwin" ]]; then
     }
 fi
 
-echo "Restoring NadekoBot's dependencies..."
+echo "Building NadekoBot..."
 cd NadekoBot || {
     echo "${_RED}Failed to change working directory$_NC" >&2
     clean_up "true"
 }
-#dotnet restore || {
-#    echo "${_RED}Failed to restore dependencies$_NC" >&2
-#    clean_up "true"
-#}
-
-echo "Building NadekoBot..."
 dotnet build --configuration Release || {
     echo "${_RED}Failed to build NadekoBot$_NC" >&2
     clean_up "true"
