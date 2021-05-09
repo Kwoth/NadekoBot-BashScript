@@ -18,14 +18,19 @@ while true; do
     echo "Welcome to NadekoBot."
     echo ""
     echo "1. Download NadekoBot"
-    echo "2. Run NadekoBot in the background"
-    echo "3. Run NadekoBot in the background with auto restart"
-    echo "4. Stop NadekoBot"
-    #echo "5. Display '$nadeko_service_name' logs in follow mode"
-    echo "5. Display '<nadeko service name>' logs in follow mode"
-    echo "6. Install prerequisites"
+    #echo "2. Run NadekoBot in the background"
+    echo "2. Run Nadeko (Normally)"
+    #echo "3. Run NadekoBot in the background with auto restart"
+    echo "3. Run Nadeko with Auto Restart in this session"
+    #echo "4. Stop NadekoBot"
+    echo "4. Auto-Install Prerequisites (For Ubuntu, Debian and CentOS)"
+    #echo "5. Display '<nadeko service name>' logs in follow mode"
+	echo "5. Auto-Install pm2 (For pm2 information, see README!)"
+    #echo "6. Install prerequisites"
+	echo "6. Start Nadeko in pm2 (Complete option 6 first!)"
     echo "7. Set up credentials.json"
     echo "8. Exit"
+
     read -r choice
     case "$choice" in
         1)
@@ -44,21 +49,54 @@ while true; do
             exec "$_INSTALLER_PREP"
             ;;
         2)
-            # Executes function to start/restart NadekoBot in the background, 
-            # using a daemon service
+            # TODO: Replace the code below in future PRs.
+            echo ""
+			echo "Running Nadeko Normally, if you are running this to check Nadeko, use .die command on discord to stop Nadeko."
+			curl -s "$_RAW_URL"/nadeko_run.sh -o nadeko_run.sh &&
+                bash nadeko_run.sh
+			echo ""
+			echo "Welcome back to NadekoBot."
+			sleep 2s
             ;;
         3)
-            # Executes function to start/restart NadekoBot in the background
-            # with auto restart, using a daemon service
+            # TODO: Replace the code below in future PRs.
+            echo ""
+            echo "Running Nadeko with Auto Restart you will have to close the session to stop the auto restart."
+            sleep 5s
+            curl -s "$_RAW_URL"/NadekoAutoRestartAndUpdate.sh -o NadekoAutoRestartAndUpdate.sh &&
+                bash NadekoAutoRestartAndUpdate.sh
+            echo ""
+            echo "That did not work?"
+            sleep 2s
             ;;
         4)
-            # Executes code to stop nadeko.service
+            # TODO: Replace the code below in future PRs.
+            echo ""
+            echo "Getting the Auto-Installer for Debian/Ubuntu"
+            curl -s "$_RAW_URL"/nadekoautoinstaller.sh -o nadekoautoinstaller.sh &&
+                bash nadekoautoinstaller.sh
+            echo ""
+            echo "Welcome back..."
+            sleep 2s
             ;;
         5)
-            # Executes code to monitor and see the output of NadekoBot/'nadeko.service'
+            # TODO: Replace the code below in future PRs.
+            echo ""
+            echo "Starting the setup for pm2 with NadekoBot. This only has to be done once."
+            curl -s "$_RAW_URL"/nadekopm2setup.sh -o nadekopm2setup.sh &&
+                bash nadekopm2setup.sh
+            echo ""
+            echo "Welcome back..."
+            sleep 2s
             ;;
         6)
-            # Downloads 'prereqs_installer.sh' and executes it
+            # TODO: Replace the code below in future PRs.
+            echo ""
+            echo "Getting the pm2 startup options for NadekoBot.."
+            curl -s "$_RAW_URL"/nadekobotpm2start.sh -o nadekobotpm2start.sh &&
+                bash nadekobotpm2start.sh
+            echo ""
+            sleep 2s
             ;;
         7)
             ## Please ignore the commented code below. It will be used in later PRs.
