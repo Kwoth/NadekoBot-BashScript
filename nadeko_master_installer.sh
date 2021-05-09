@@ -29,15 +29,14 @@ while true; do
     read -r choice
     case "$choice" in
         1)
+            echo "Downloading 'nadeko_latest_installer.sh'..."
+            
             # Download latest version of 'nadeko_latest_installer.sh'.
             curl -s "$_RAW_URL"/nadeko_latest_installer.sh -o nadeko_latest_installer.sh || {
                 echo "${_RED}Failed to download latest 'nadeko_latest_installer.sh'...$_NC" >&2
                 clean_exit "1" "Exiting" "true"
             }
-
-            clear -x  # Clears screen of current content.
-            printf "We will now download/update NadekoBot. "
-            read -rp "Press [Enter] to begin."
+            clear -x  # B.1. Clears screen of current content.
             sudo chmod +x nadeko_latest_installer.sh && ./nadeko_latest_installer.sh
 
             # Rexecutes the new/downloaded version of 'installer_prep.sh', so that all
@@ -62,7 +61,22 @@ while true; do
             # Downloads 'prereqs_installer.sh' and executes it
             ;;
         7)
-            # Downloads 'credentials_setup.sh' and executes it
+            ## Please ignore the commented code below. It will be used in later PRs.
+            #if [[ $disabled_7 = true ]]; then
+            #    echo "${red}Option 7 is currently disabled${nc}"
+            #    continue
+            #fi
+
+            echo "Downloading 'credentials_setup.sh'..."
+
+            # Download latest version of 'credentials_setup.sh'.
+            curl -s "$_RAW_URL"/credentials_setup.sh -o credentials_setup.sh || {
+                echo "${_RED}Failed to download latest 'credentials_setup.sh'...$_NC" >&2
+                clean_exit "1" "Exiting" "true"
+            }
+            clear -x  # B.1.
+            sudo chmod +x credentials_setup.sh && ./credentials_setup.sh
+            clear -x  # B.1.
             ;;
         8)
             clean_exit "0" "Exiting"

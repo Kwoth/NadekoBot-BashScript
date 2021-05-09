@@ -83,8 +83,13 @@ trap 'echo -e "\n\nScript forcefully stopped"
 ########################################################################################
 #### [ Main ]
 
+
+printf "We will now download/update NadekoBot. "
+read -rp "Press [Enter] to begin."
+
 ####################################################################################
 ######## [ Create Backup, Then Update ]
+
 
 ## Create a backup of NadekoBot, if it currently exists.
 if [[ -d NadekoBot ]]; then
