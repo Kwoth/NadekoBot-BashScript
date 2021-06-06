@@ -65,9 +65,11 @@ else
     cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
 	cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
     cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" 1>/dev/null 2>&1
+	cp -RT "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp3.1/data/NadekoBot.db" 1>/dev/null 2>&1
     mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.0/data/NadekoBot_old.db" 1>/dev/null 2>&1
 	mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp1.1/data/NadekoBot_old.db" 1>/dev/null 2>&1
     mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot_old.db" 1>/dev/null 2>&1
+	mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.1/data/NadekoBot_old.db" 1>/dev/null 2>&1
     echo ""
 	mv -f "$root/NadekoBot_old/src/NadekoBot/data/aliases.yml" "$root/NadekoBot_old/src/NadekoBot/data/aliases_old.yml" 1>/dev/null 2>&1
 	rm -rf "$root/NadekoBot_old/src/NadekoBot/data/strings_old" 1>/dev/null 2>&1
