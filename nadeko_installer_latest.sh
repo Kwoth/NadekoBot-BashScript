@@ -70,6 +70,7 @@ else
     mv -f "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot.db" "$root/NadekoBot/src/NadekoBot/bin/Release/netcoreapp2.0/data/NadekoBot_old.db" 1>/dev/null 2>&1
     echo ""
 	mv -f "$root/NadekoBot_old/src/NadekoBot/data/aliases.yml" "$root/NadekoBot_old/src/NadekoBot/data/aliases_old.yml" 1>/dev/null 2>&1
+	rm -rf "$root/NadekoBot_old/src/NadekoBot/data/strings_old" 1>/dev/null 2>&1
 	mv -f "$root/NadekoBot_old/src/NadekoBot/data/strings" "$root/NadekoBot_old/src/NadekoBot/data/strings_old" 1>/dev/null 2>&1
     echo "Database copied to the new version"
     cp -RT "$root/NadekoBot_old/src/NadekoBot/data/" "$root/NadekoBot/src/NadekoBot/data/" 1>/dev/null 2>&1
